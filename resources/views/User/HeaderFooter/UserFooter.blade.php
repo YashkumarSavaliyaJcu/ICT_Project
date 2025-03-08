@@ -8,12 +8,14 @@
                 </div>
             </div>
             <div class="useful-links">
-                <h3>USEFULL LINK</h3>
+                <h3>USEFULL LINKS</h3>
                 <ul>
                     <li><a href="{{url('/')}}">Home</a></li>
                     <li><a href="{{url('/about-us')}}">About us</a></li>
                     <li><a href="{{url('/services')}}">Service</a></li>
                     <li><a href="{{url('/blogs')}}">Blogs</a></li>
+                    <li><a href="{{url('/terms-and-condition')}}">Terms & Conditions</a></li>
+                    <li><a href="{{url('/agreement')}}">Agreement</a></li>
                     <li><a href="{{url('/contact-us')}}">Contact Us</a></li>
                 </ul>
             </div>
@@ -58,7 +60,6 @@
             var s_id = $(this).attr('data');
             addtocart(s_id);
         });
-
         function addtocart(s_id) {
             $.ajax({
                 url: "{{ url('addtocart') }}",

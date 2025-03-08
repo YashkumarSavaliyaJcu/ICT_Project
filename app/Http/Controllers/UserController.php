@@ -35,8 +35,38 @@ class UserController extends Controller
         return view('User.Login');
     }
 
-    public function signup()
+    public function signup(Request $request)
     {
+        $data = $request->input();
+        
+        if (count($data) > 0) {
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required|unique:users,email',
+                'password' => 'required|min:8',
+                'c_password' => 'required|same:password',
+            ], [
+                'name.required' => 'Please enter your name',
+                'email.required' => 'Please enter your email address',
+                'password.required' => 'Please enter password',
+                'password.min' => 'Please enter 8 character in password',
+                'password.alpha_num' => 'password should be a combination of number and alphanumeric',
+                'c_password.required' => 'Please enter confirm password',
+                'c_password.same' => 'Confirm password not match to password',
+            ]);
+           $userData=array(
+                'name'=>$data['name'],
+                'email'=>$data['email'],
+                'password'=>md5($data['password']),
+                'u_type'=>0
+            );
+            $user = users::create($userData);
+            if (!is_null($user)) {
+                return redirect('/login')->with('successmessage','Success! Registration completed');
+            } else {
+                return redirect()->back()->with('errormessage','Alert! Failed to register');
+            }
+        }
         return view('User.SignUp');
     }
     public function forgotpassword()
@@ -131,5 +161,14 @@ class UserController extends Controller
                 'status' => 'error'
             ));
         }
+    }
+
+    public function termsandcondition(){
+        return view('User.TermsAndCondition');
+
+    }
+
+    public function agreement(){
+        return view('User.Agreement');
     }
 }

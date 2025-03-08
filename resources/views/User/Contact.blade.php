@@ -18,25 +18,27 @@
           <div class="row">
               <div class="col-md-7">
                   <div class="left-contact">
-                      <form>
+                  <form action="{{url('contactmessage')}}" method="post">
+                  @csrf
+                  <input type="text" name="hdata" class="d-none">
                           <div class="mb-3 text-boxs">
                               <label for="name" class="form-label poppins-medium color-green">Name</label>
-                              <input type="text" class="form-control custom-textbox" id="name" placeholder="Your Name">
+                              <input type="text" name="name" class="form-control custom-textbox" id="name" placeholder="Your Name" required>
                           </div>
                           <div class="mb-3 text-boxs">
                               <label for="phone" class="form-label poppins-medium color-green">Phone no</label>
-                              <input type="text" class="form-control custom-textbox" id="phone" placeholder="Your Phone No">
+                              <input type="number" name="phone" class="form-control custom-textbox" id="phone" placeholder="Your Phone No" required>
                           </div>
                           <div class="mb-3 text-boxs">
                               <label for="email" class="form-label poppins-medium color-green">Email</label>
-                              <input type="email" class="form-control custom-textbox" id="email" placeholder="Your Email">
+                              <input type="email" name="email" class="form-control custom-textbox" id="email" placeholder="Your Email" required>
                           </div>
                           <div class="mb-3 text-boxs">
                               <label for="message" class="form-label poppins-medium color-green">Message</label>
-                              <textarea class="form-control custom-textbox" id="message" rows="4" placeholder="Your Message"></textarea>
+                              <textarea class="form-control custom-textbox" id="message" name="message" rows="4" placeholder="Your Message"></textarea>
                           </div>
                           <div class="btn-box">
-                              <button type="button" class="btn-green text-uppercase">Send Message<i class="fa-solid fa-chevron-right ml-10"></i></button>
+                              <button type="submit" class="btn-green text-uppercase">Send Message<i class="fa-solid fa-chevron-right ml-10"></i></button>
                           </div>
                       </form>
                   </div>
