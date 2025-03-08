@@ -322,7 +322,7 @@ class AdminController extends Controller
                 $insert = array(
                     'title' => $data['title'],
                     'description' => $data['description'],
-                    'code' => $data['code'],
+                    'code' => strtoupper($data['code']),
                     'min_amount' => $data['min_amount'],
                     'c_amount' => $data['c_amount'],
                 );
@@ -351,7 +351,7 @@ class AdminController extends Controller
                 $update = array(
                     'title' => $data['title'],
                     'description' => $data['description'],
-                    'code' => $data['code'],
+                    'code' => strtoupper($data['code']),
                     'min_amount' => $data['min_amount'],
                     'c_amount' => $data['c_amount'],
                 );

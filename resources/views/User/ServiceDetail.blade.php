@@ -6,6 +6,8 @@
       <nav class="breadcrumbs">
         <a href="{{url('/')}}">HOME</a>
         <span>/</span>
+        <a href="{{url('/services')}}">OUR SERVICE</a>
+        <span>/</span>
         <a>SERVICE DETAIL</a>
       </nav>
   </section>

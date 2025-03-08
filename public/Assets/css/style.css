@@ -669,7 +669,7 @@ footer {
 
 .blog-content h3 {
     font-size: 16px;
-    color: #007a3d;
+    color: #017a3b;
     margin: 10px 0;
 }
 
@@ -678,7 +678,7 @@ footer {
     position: absolute;
     top: -20px;
     right: 15px;
-    background: #007a3d;
+    background: #017a3b;
     color: #fff;
     padding: 5px 10px;
     font-size: 14px;
@@ -689,7 +689,7 @@ footer {
 /* Read More Button */
 .read-more {
     display: inline-block;
-    color: #007a3d;
+    color: #017a3b;
     font-weight: bold;
     text-decoration: none;
     margin-top: 10px;
@@ -706,4 +706,53 @@ footer {
 
 .read-more:hover {
     color: #005c2f;
+}
+
+/* Coupon Code Input & Button */
+.coupon-container {
+    display: flex;
+    align-items: center;
+}
+
+.coupon-container .coupon-button {
+    background: #017a3b;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.coupon-container .coupon-button:hover {
+    background: #005c2f;
+}
+
+/* Cart Button */
+.cart-container {
+    position: relative;
+}
+
+.cart-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Cart Badge */
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #017a3b;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
 }

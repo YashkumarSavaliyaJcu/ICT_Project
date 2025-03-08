@@ -39,13 +39,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/contact-us') }}">Contact</a>
                     </li>
-                     @if((Session()->has('userlogin'))) 
+                    @if((Session()->has('userlogin'))) 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             My Account
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <a class="dropdown-item" href="{{ url('/logout') }}"
