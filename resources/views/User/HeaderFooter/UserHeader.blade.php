@@ -40,6 +40,21 @@
                         <a class="nav-link" href="{{ url('/contact-us') }}">Contact</a>
                     </li>
                     @if((Session()->has('userlogin'))) 
+                    <?php 
+                        $cart=\DB::table('add_to_cart')
+                            ->where('u_id', session()->get('userlogin')->u_id)
+                            ->get();
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/cart') }}">
+                            <div class="cart-container">
+                                <button class="cart-btn">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    <span class="cart-count totalcart">{{count($cart)}}</span>
+                                </button>
+                            </div>
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             My Account

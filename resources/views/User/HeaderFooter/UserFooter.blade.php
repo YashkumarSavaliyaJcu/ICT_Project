@@ -79,6 +79,32 @@
                 }
             });
         }
+
+        $('body').on('click', '.removecart', function() {
+            var s_id = $(this).attr('data');
+            removecart(s_id);
+        });
+        function removecart(c_id) {
+            $.ajax({
+                url: "{{ url('removecart') }}",
+                method: "POST",
+                dataType: 'json',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    c_id: c_id,
+                },
+                success: function(result) {
+                    Swal.fire({
+                        icon: result.status,
+                        title: result.message,
+                        showConfirmButton: true,
+                        timer: 1500
+                    }).then(function() {
+                        window.location.reload();
+                    });
+                }
+            });
+        }
     </script>
 </body>
 </html>
