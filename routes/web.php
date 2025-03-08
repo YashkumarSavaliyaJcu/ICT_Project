@@ -26,6 +26,12 @@ Route::controller(UserController::class)->group(function () {
     Route::any('/blogs', 'blogs');
     Route::any('/contact-us', 'contact');
     Route::any('/addtocart', 'addtocart');
+    Route::any('/contactmessage', 'contactmessage');
+    Route::any('/agreement', 'agreement');
+    Route::any('/terms-and-condition', 'termsAndCondition');
+
+    Route::any('/profile', 'profile');
+    Route::any('/updateprofile', 'updateprofile');
 
     Route::any('/{url?}','index');
 });
