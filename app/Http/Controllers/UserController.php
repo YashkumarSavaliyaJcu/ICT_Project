@@ -8,6 +8,8 @@ use App\Models\addtocart;
 use App\Models\users;
 use App\Models\blogs;
 use App\Models\inquiry;
+use App\Models\coupons;
+use App\Models\serviceorder;
 use DB;
 
 class UserController extends Controller
@@ -164,6 +166,34 @@ class UserController extends Controller
         }
     }
 
+    public function removecart(Request $request)
+    {
+        $data = $request->input();
+        if (session()->has('userlogin')) {
+            $uid = session()->get('userlogin.u_id');
+            $isExist = addtocart::where([['u_id', $uid], ['id', $data['c_id']]])->first();
+            if(isset($isExist))
+            {
+                addtocart::where('id',$data['c_id'])->delete();
+                echo json_encode(array(
+                    'message' => 'Product removed from cart successfully!',
+                    'status' => 'success'
+                ));
+            } 
+            else {
+                echo json_encode(array(
+                    'message' => 'Something Wrong Please Try Again!...',
+                    'status' => 'error'
+                ));
+            }
+        } else {
+            echo json_encode(array(
+                'message' => 'Please Sign In First',
+                'status' => 'error'
+            ));
+        }
+    }
+
     public function termsandcondition(){
         return view('User.TermsAndCondition');
 
@@ -255,5 +285,22 @@ class UserController extends Controller
         );
         users::where('u_id',$uid)->update($update);
         return redirect('profile')->with('successmessage','Profile Updated Successfully');
+    }
+
+    public function checkout()
+    {
+        if (session()->has('userlogin')) {
+            $uid=session()->get('userlogin')->u_id;
+            $data['cart']=addtocart::join('services', 'services.s_id', 'add_to_cart.s_id')->where('u_id',$uid)->get();
+            if(count($data['cart'])>0) {
+                return view('User.Checkout', $data);
+            }
+            else {
+                return redirect('/cart')->with('errormessage','Your cart has been empty!');
+            }
+        }
+        else {
+            return redirect('/');
+        }
     }
 }
