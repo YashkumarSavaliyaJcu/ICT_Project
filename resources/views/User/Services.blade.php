@@ -43,5 +43,28 @@
           </div>
       </div>
   </section>
+
+  <section class="about-services py-5">
+      <div class="container">
+          <h2 class="text-center fw-bold text-success mb-4">ABOUT SERVICES</h2>
+          <div class="row align-items-center">
+              <div class="col-lg-5 col-md-6">
+                  <img src="{{ asset('public/Assets') }}/img/about.png" class="img-fluid rounded shadow about-service-img" alt="About Services">
+              </div>
+              <div class="col-lg-7 col-md-6">
+                  <p>Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                  <p>Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                  <p>Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                  <ul class="list-unstyled">
+                      <li><i class="fas fa-check-circle text-success"></i> LOREM IPSUM</li>
+                      <li><i class="fas fa-check-circle text-success"></i> LOREM IPSUM</li>
+                      <li><i class="fas fa-check-circle text-success"></i> LOREM IPSUM</li>
+                      <li><i class="fas fa-check-circle text-success"></i> LOREM IPSUM</li>
+                      <li><i class="fas fa-check-circle text-success"></i> LOREM IPSUM</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </section>
 </main>
 @endsection

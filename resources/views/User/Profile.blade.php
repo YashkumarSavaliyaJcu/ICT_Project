@@ -16,7 +16,7 @@
                           </div>
                           <div class="mb-3 text-boxs">
                               <label for="email" class="form-label poppins-medium color-green">Email</label>
-                              <input type="email" name="email" value="{{$profile->email}}" class="form-control custom-textbox" id="email" placeholder="Your Email" required>
+                              <input type="email" name="email" value="{{$profile->email}}" class="form-control custom-textbox" id="email" placeholder="Your Email" required disabled>
                           </div>
                           <div class="btn-box">
                               <button type="submit" class="btn-green text-uppercase">Save Changes<i class="fa-solid fa-chevron-right ml-10"></i></button>
