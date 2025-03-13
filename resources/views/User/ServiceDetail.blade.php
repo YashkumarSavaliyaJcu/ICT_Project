@@ -75,6 +75,43 @@
             </div>
             <a class="booking-btn addtocart" data="{{$service->s_id}}">BOOKING CONFIRMATION <i class="fa-solid fa-arrow-right ml-10"></i></a>
         </div>
+        <div class="row mt-5">
+          <div class="col-md-6">
+            <img
+              src="{{ asset('public/Assets') }}/img/about.png"
+              class="rounded me-3"
+              alt="Experienced People"
+            />
+          </div>
+          <div class="col-md-6">
+            <div>
+              <h5 class="fw-bold text-success mb-2">
+                Experienced People Can Help You More.
+              </h5>
+              <p class="text-muted">
+                We have a skilled team to provide the best cleaning service.
+              </p>
+              <ul class="list-unstyled">
+                <li class="d-flex align-items-center py-1">
+                  <i class="fas fa-check-circle text-success me-2"></i> Quality
+                  Cleaning
+                </li>
+                <li class="d-flex align-items-center py-1">
+                  <i class="fas fa-check-circle text-success me-2"></i>
+                  Professional Team
+                </li>
+                <li class="d-flex align-items-center py-1">
+                  <i class="fas fa-check-circle text-success me-2"></i>
+                  Affordable Pricing
+                </li>
+                <li class="d-flex align-items-center py-1">
+                  <i class="fas fa-check-circle text-success me-2"></i> Customer
+                  Satisfaction
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
     </main>
 
     <aside>
@@ -90,6 +127,30 @@
                 <textarea placeholder="Message" class="form-input" name="message" rows="4"></textarea>
                 <button type="submit" class="submit-btn">SUBMIT</button>
             </form>
+        </div>
+
+        <div class="position-relative mt-4">
+          <!-- Background Image -->
+          <div
+            class="rounded shadow-sm position-relative"
+            style="background: url('{{ asset('public/Assets') }}/img/about.png') no-repeat center center/cover; height: 500px;"
+          >
+            <!-- Overlay Effect -->
+            <div
+              class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded"
+            ></div>
+
+            <!-- Discount Text & Button -->
+            <div
+              class="position-absolute top-50 start-50 translate-middle text-center text-white"
+            >
+              <h4 class="fw-bold">30% Discount</h4>
+              <p>Promotion Offer 16 Days</p>
+              <a class="btn btn-light text-success fw-bold px-4 py-2"
+                >GET IT</a
+              >
+            </div>
+          </div>
         </div>
     </aside>
     </div>

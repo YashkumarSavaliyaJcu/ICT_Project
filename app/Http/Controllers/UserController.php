@@ -281,7 +281,6 @@ class UserController extends Controller
         $uid=session()->get('userlogin')->u_id;
         $update=array(
             'name'=>$data['name'],
-            'email'=>$data['email'],
         );
         users::where('u_id',$uid)->update($update);
         return redirect('profile')->with('successmessage','Profile Updated Successfully');
