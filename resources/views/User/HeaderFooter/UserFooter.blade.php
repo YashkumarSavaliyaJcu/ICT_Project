@@ -70,6 +70,9 @@
                     s_id: s_id,
                 },
                 success: function(result) {
+                    if (result.status == 'success') {
+                        $('.totalcart').html(result.totalproduct);
+                    }
                     Swal.fire({
                         icon: result.status,
                         title: result.message,
@@ -105,6 +108,51 @@
                 }
             });
         }
+
+    $('body').on('click', '.applycoupon', function() {
+        var code = $('.code').val();
+        applycoupon(code);
+    });
+
+    function applycoupon(code) {
+        $.ajax({
+            url: "{{ url('applycoupon') }}",
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                _token: "{{ csrf_token() }}",
+                code: code,
+            },
+            success: function(result) {
+                if (result.status == 'success') {
+                    $('#discount').html('$ ' + result.discount);
+                } else {
+                    $('#discount').html('$0.00');
+                }
+                $('#famount').html('$' + result.finalamount.toFixed(2));
+                Toast.fire({
+                    icon: result.status,
+                    title: result.message
+                }).then(function() {
+                    window.location.reload();
+                });
+            }
+        });
+    }
+
+    function removeCoupon() {
+        $.ajax({
+            url: "{{ url('removecoupon') }}",
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            success: function(result) {
+                 window.location.reload();
+            }
+        });
+    }
     </script>
 </body>
 </html>

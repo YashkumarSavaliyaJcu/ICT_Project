@@ -287,6 +287,95 @@ class UserController extends Controller
         return redirect('profile')->with('successmessage','Profile Updated Successfully');
     }
 
+    public function cart()
+    {
+        if (session()->has('userlogin')) {
+            $uid=session()->get('userlogin')->u_id;
+            $data['cart']=addtocart::join('services', 'services.s_id', 'add_to_cart.s_id')->where('u_id',$uid)->get();
+            if(count($data['cart'])>0)
+                return view('User.Cart', $data);
+            else
+                return redirect('/services')->with('errormessage','Your cart has been empty!');;
+        }
+        else {
+            return redirect('/');
+        }
+    }
+
+    public function applycoupon(Request $request)
+    {
+        $data=$request->input();
+        $uid=session()->get('userlogin')->u_id;
+        $cart = addtocart::join('services', 'services.s_id', 'add_to_cart.s_id')->where('u_id',$uid)->get();
+        $total = 0;
+        foreach ($cart as $value) {
+            $total += $value->s_price;
+        }
+        session()->pull('couponcode');
+        if($data['code']!='')
+        {
+            $coupon = coupons::where('code', strtoupper($data['code']))->first();
+            if (isset($coupon)) 
+            {
+                $order = serviceorder::where([['coupon_id', $coupon->id], ['u_id', $uid]])->first();
+                if(isset($order)){
+                    echo json_encode(array(
+                        'message' => 'Promo code already used!',
+                        'status' => 'error',
+                        'finalamount'=> $total
+                    ));
+                }
+                else
+                {
+                    if ($total >= $coupon->min_amount) {
+                    $dis = round($coupon->c_amount);
+                    $coddata = array(
+                        'code' => $data['code'],
+                        'dis' => $dis,
+                    );
+                    session()->put('couponcode', $coddata);
+                    echo json_encode(array(
+                        'message' => 'Promo code applied successfully!',
+                        'discount'=> $dis,
+                        'finalamount'=> $total - $dis,
+                        'status' => 'success',
+                    ));
+                } else {
+                    echo json_encode(array(
+                        'message' => 'Your Order is Less Then ₹'. $coupon->min_amount,
+                        'status' => 'error',
+                        'finalamount'=> $total
+                    ));
+                }
+                }
+            }
+            elseif($coupon==''){
+                echo json_encode(array(
+                    'message' => 'Invalid Coupon',
+                    'status' => 'error',
+                    'finalamount'=> $total
+                ));
+            }
+        }
+        else{
+                echo json_encode(array(
+                    'message' => 'Please Enter Promo Code',
+                    'status' => 'error',
+                    'finalamount'=> $total
+                ));
+        }
+    }
+
+    public function removecoupon(Request $request)
+    {
+        session()->pull('couponcode');
+        echo json_encode(array(
+            'message' => 'Promo code removed successfully!',
+            'status' => 'success',
+        ));
+    }
+    
+
     public function checkout()
     {
         if (session()->has('userlogin')) {
@@ -302,5 +391,9 @@ class UserController extends Controller
         else {
             return redirect('/');
         }
+    }
+    public function confirmation()
+    {
+        return view('User.Confirmation');
     }
 }
