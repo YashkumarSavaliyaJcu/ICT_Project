@@ -39,6 +39,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/contact-us') }}">Contact</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Coupons</a>
+                    </li>
                     @if((Session()->has('userlogin'))) 
                     <?php 
                         $cart=\DB::table('add_to_cart')
