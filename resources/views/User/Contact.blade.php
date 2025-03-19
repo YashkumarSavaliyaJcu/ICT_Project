@@ -1,66 +1,63 @@
 @extends('User.Master')
 @section('body')
-  <main class="main">
-
+<main class="main">
     <section class="breadcrumb-section">
-      <h1>CONTACT US</h1>
-      <nav class="breadcrumbs">
+        <h1>CONTACT US</h1>
+        <nav class="breadcrumbs">
         <a href="{{url('/')}}">HOME</a>
         <span>/</span>
         <a>CONTACT US</a>
-      </nav>
+        </nav>
     </section>
 
     <!-- Contact Information Section -->
-   <!-- Contact Information Section -->
-<!-- Contact Information Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <!-- Phone Box -->
-            <div class="col-md-4">
-                <div class="border rounded p-4 shadow-sm d-flex align-items-center bg-white">
-                    <div class="icon-box bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
-                        <i class="fas fa-phone fs-5"></i>
-                    </div>
-                    <div>
-                        <h6 class="fw-bold text-success mb-1">Phone</h6>
-                        <p class="mb-0">+61 489263036</p>
-                        <p>+61 489263036</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Email Box -->
-            <div class="col-md-4">
-                <div class="border rounded p-4 shadow-sm d-flex align-items-center bg-white">
-                    <div class="icon-box bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
-                        <i class="fas fa-envelope fs-5"></i>
-                    </div>
-                    <div>
-                        <h6 class="fw-bold text-success mb-1">Email</h6>
-                        <p class="mb-0">ebct123@gmail.com</p>
-                        <p>ebct1@gmail.com</p>
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Phone Box -->
+                <div class="col-md-4">
+                    <div class="border rounded p-4 shadow-sm d-flex align-items-center bg-white">
+                        <div class="icon-box bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                            <i class="fas fa-phone fs-5"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-success mb-1">Phone</h6>
+                            <p class="mb-0">+61 489263036</p>
+                            <p>+61 489263036</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Location Box -->
-            <div class="col-md-4">
-                <div class="border rounded p-4 shadow-sm d-flex align-items-center bg-white">
-                    <div class="icon-box bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
-                        <i class="fas fa-map-marker-alt fs-5"></i>
+                <!-- Email Box -->
+                <div class="col-md-4">
+                    <div class="border rounded p-4 shadow-sm d-flex align-items-center bg-white">
+                        <div class="icon-box bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                            <i class="fas fa-envelope fs-5"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-success mb-1">Email</h6>
+                            <p class="mb-0">ebct123@gmail.com</p>
+                            <p>ebct1@gmail.com</p>
+                        </div>
                     </div>
-                    <div>
-                        <h6 class="fw-bold text-success mb-1">Location</h6>
-                        <p class="mb-0">St Street, Newyork City, NFD</p>
-                        <p>James Cook, Brisbane.</p>
+                </div>
+
+                <!-- Location Box -->
+                <div class="col-md-4">
+                    <div class="border rounded p-4 shadow-sm d-flex align-items-center bg-white">
+                        <div class="icon-box bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                            <i class="fas fa-map-marker-alt fs-5"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-success mb-1">Location</h6>
+                            <p class="mb-0">St Street, Newyork City, NFD</p>
+                            <p>James Cook, Brisbane.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
 

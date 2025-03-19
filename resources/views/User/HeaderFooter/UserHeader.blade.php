@@ -25,22 +25,22 @@
             <div class="collapse navbar-collapse cust-nav" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/') }}">Home</a>
+                        <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/about-us') }}">About Us</a>
+                        <a class="nav-link {{ request()->is('about-us') ? 'active' : '' }}" href="{{ url('/about-us') }}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/services') }}">Service</a>
+                        <a class="nav-link {{ request()->is('services') ? 'active' : '' }}" href="{{ url('/services') }}">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/blogs') }}">Blogs</a>
+                        <a class="nav-link {{ request()->is('blogs') ? 'active' : '' }}" href="{{ url('/blogs') }}">Blogs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/contact-us') }}">Contact</a>
+                        <a class="nav-link {{ request()->is('contact-us') ? 'active' : '' }}" href="{{ url('/contact-us') }}">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Coupons</a>
+                        <a class="nav-link {{ request()->is('coupons') ? 'active' : '' }}" href="{{ url('/coupons') }}">Coupons</a>
                     </li>
                     @if((Session()->has('userlogin'))) 
                     <?php 
@@ -49,7 +49,7 @@
                             ->get();
                     ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/cart') }}">
+                        <a class="nav-link {{ request()->is('cart') ? 'active' : '' }}" href="{{ url('/cart') }}">
                             <div class="cart-container">
                                 <button class="cart-btn">
                                     <i class="fa-solid fa-cart-shopping"></i>
@@ -59,7 +59,7 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {{ request()->is('profile') ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             My Account
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
