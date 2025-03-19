@@ -10,13 +10,13 @@
             <div class="useful-links">
                 <h3>USEFULL LINKS</h3>
                 <ul>
-                    <li><a href="{{url('/')}}">Home</a></li>
-                    <li><a href="{{url('/about-us')}}">About us</a></li>
-                    <li><a href="{{url('/services')}}">Service</a></li>
-                    <li><a href="{{url('/blogs')}}">Blogs</a></li>
-                    <li><a href="{{url('/terms-and-condition')}}">Terms & Conditions</a></li>
-                    <li><a href="{{url('/agreement')}}">Agreement</a></li>
-                    <li><a href="{{url('/contact-us')}}">Contact Us</a></li>
+                    <li><a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{url('/')}}">Home</a></li>
+                    <li><a class="nav-link {{ request()->is('about-us') ? 'active' : '' }}" href="{{url('/about-us')}}">About us</a></li>
+                    <li><a class="nav-link {{ request()->is('services') ? 'active' : '' }}" href="{{url('/services')}}">Services</a></li>
+                    <li><a class="nav-link {{ request()->is('blogs') ? 'active' : '' }}" href="{{url('/blogs')}}">Blogs</a></li>
+                    <li><a class="nav-link {{ request()->is('terms-and-condition') ? 'active' : '' }}" href="{{url('/terms-and-condition')}}">Terms & Conditions</a></li>
+                    <li><a class="nav-link {{ request()->is('agreement') ? 'active' : '' }}" href="{{url('/agreement')}}">Agreement</a></li>
+                    <li><a class="nav-link {{ request()->is('contact-us') ? 'active' : '' }}" href="{{url('/contact-us')}}">Contact Us</a></li>
                 </ul>
             </div>
             <div class="newsletter">
@@ -44,17 +44,18 @@
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-      @if(session()->has('errormessage'))
-        Toast.fire({
-            icon: 'error',
-            title: "{{session()->get('errormessage')}}"
-        })
-      @elseif(session()->has('successmessage'))
-          Toast.fire({
-              icon: 'success',
-              title: "{{session()->get('successmessage')}}"
-          })
-      @endif
+
+        @if(session()->has('errormessage'))
+            Toast.fire({
+                icon: 'error',
+                title: "{{session()->get('errormessage')}}"
+            })
+        @elseif(session()->has('successmessage'))
+            Toast.fire({
+                icon: 'success',
+                title: "{{session()->get('successmessage')}}"
+            })
+        @endif
 
         $('body').on('click', '.addtocart', function() {
             var s_id = $(this).attr('data');
@@ -109,50 +110,50 @@
             });
         }
 
-    $('body').on('click', '.applycoupon', function() {
-        var code = $('.code').val();
-        applycoupon(code);
-    });
+        $('body').on('click', '.applycoupon', function() {
+            var code = $('.code').val();
+            applycoupon(code);
+        });
 
-    function applycoupon(code) {
-        $.ajax({
-            url: "{{ url('applycoupon') }}",
-            method: 'POST',
-            dataType: 'json',
-            data: {
-                _token: "{{ csrf_token() }}",
-                code: code,
-            },
-            success: function(result) {
-                if (result.status == 'success') {
-                    $('#discount').html('$ ' + result.discount);
-                } else {
-                    $('#discount').html('$0.00');
+        function applycoupon(code) {
+            $.ajax({
+                url: "{{ url('applycoupon') }}",
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    code: code,
+                },
+                success: function(result) {
+                    if (result.status == 'success') {
+                        $('#discount').html('$ ' + result.discount);
+                    } else {
+                        $('#discount').html('$0.00');
+                    }
+                    $('#famount').html('$' + result.finalamount.toFixed(2));
+                    Toast.fire({
+                        icon: result.status,
+                        title: result.message
+                    }).then(function() {
+                        window.location.reload();
+                    });
                 }
-                $('#famount').html('$' + result.finalamount.toFixed(2));
-                Toast.fire({
-                    icon: result.status,
-                    title: result.message
-                }).then(function() {
-                    window.location.reload();
-                });
-            }
-        });
-    }
+            });
+        }
 
-    function removeCoupon() {
-        $.ajax({
-            url: "{{ url('removecoupon') }}",
-            method: 'POST',
-            dataType: 'json',
-            data: {
-                _token: "{{ csrf_token() }}",
-            },
-            success: function(result) {
-                 window.location.reload();
-            }
-        });
-    }
+        function removeCoupon() {
+            $.ajax({
+                url: "{{ url('removecoupon') }}",
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(result) {
+                    window.location.reload();
+                }
+            });
+        }
     </script>
 </body>
 </html>

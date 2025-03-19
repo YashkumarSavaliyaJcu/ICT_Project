@@ -160,7 +160,7 @@ class UserController extends Controller
             }
         } else {
             echo json_encode(array(
-                'message' => 'Please Sign In First',
+                'message' => 'Please Sign In first',
                 'status' => 'error'
             ));
         }
@@ -188,18 +188,25 @@ class UserController extends Controller
             }
         } else {
             echo json_encode(array(
-                'message' => 'Please Sign In First',
+                'message' => 'Please Sign In first',
                 'status' => 'error'
             ));
         }
     }
 
-    public function termsandcondition(){
+    public function coupons()
+    {
+        $data['coupons'] = coupons::get();
+        return view('User.Coupons',$data);
+    }
+    
+    public function termsandcondition()
+    {
         return view('User.TermsAndCondition');
-
     }
 
-    public function agreement(){
+    public function agreement()
+    {
         return view('User.Agreement');
     }
 
@@ -264,14 +271,19 @@ class UserController extends Controller
 
     public function profile()
     {
-        $uid=session()->get('userlogin')->u_id;
-        $data['profile']=users::where('u_id',$uid)->first();
-        if(isset($data['profile']))
-        {
-            return view('User.Profile',$data);
+        if (session()->has('userlogin')) {
+            $uid=session()->get('userlogin.u_id');
+            $data['profile']=users::where('u_id',$uid)->first();
+            if(isset($data['profile']))
+            {
+                return view('User.Profile',$data);
+            }
+            else{
+                return redirect('/');
+            }
         }
-        else{
-            return redirect('/');
+        else {
+            return redirect('/')->with('errormessage','Please Sign In first');
         }
     }
 
@@ -297,7 +309,7 @@ class UserController extends Controller
                 return redirect('/services')->with('errormessage','Your cart has been empty!');;
         }
         else {
-            return redirect('/');
+            return redirect('/')->with('errormessage','Please Sign In first');
         }
     }
 
@@ -316,10 +328,10 @@ class UserController extends Controller
             $coupon = coupons::where('code', strtoupper($data['code']))->first();
             if (isset($coupon)) 
             {
-                $order = serviceorder::where([['coupon_id', $coupon->id], ['u_id', $uid]])->first();
+                $order = serviceorder::where([['coupon_id', $coupon->coupon_id], ['u_id', $uid]])->first();
                 if(isset($order)){
                     echo json_encode(array(
-                        'message' => 'Promo code already used!',
+                        'message' => 'Coupon code already used!',
                         'status' => 'error',
                         'finalamount'=> $total
                     ));
@@ -329,19 +341,20 @@ class UserController extends Controller
                     if ($total >= $coupon->min_amount) {
                     $dis = round($coupon->c_amount);
                     $coddata = array(
+                        'id' => $coupon->coupon_id,
                         'code' => $data['code'],
                         'dis' => $dis,
                     );
                     session()->put('couponcode', $coddata);
                     echo json_encode(array(
-                        'message' => 'Promo code applied successfully!',
+                        'message' => 'Coupon code applied successfully!',
                         'discount'=> $dis,
                         'finalamount'=> $total - $dis,
                         'status' => 'success',
                     ));
                 } else {
                     echo json_encode(array(
-                        'message' => 'Your Order is Less Then ₹'. $coupon->min_amount,
+                        'message' => 'Your Order is less then ₹'. $coupon->min_amount,
                         'status' => 'error',
                         'finalamount'=> $total
                     ));
@@ -358,7 +371,7 @@ class UserController extends Controller
         }
         else{
                 echo json_encode(array(
-                    'message' => 'Please Enter Promo Code',
+                    'message' => 'Please enter valid coupon code',
                     'status' => 'error',
                     'finalamount'=> $total
                 ));
@@ -369,7 +382,7 @@ class UserController extends Controller
     {
         session()->pull('couponcode');
         echo json_encode(array(
-            'message' => 'Promo code removed successfully!',
+            'message' => 'Coupon code removed successfully!',
             'status' => 'success',
         ));
     }
@@ -377,7 +390,8 @@ class UserController extends Controller
 
     public function checkout()
     {
-        if (session()->has('userlogin')) {
+        if (session()->has('userlogin')) 
+        {
             $uid=session()->get('userlogin')->u_id;
             $data['cart']=addtocart::join('services', 'services.s_id', 'add_to_cart.s_id')->where('u_id',$uid)->get();
             if(count($data['cart'])>0) {

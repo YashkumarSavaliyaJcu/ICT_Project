@@ -33,6 +33,7 @@ Route::controller(UserController::class)->group(function () {
     Route::any('/applycoupon', 'applycoupon');
     Route::any('/removecoupon', 'removecoupon');
     Route::any('/confirmation', 'confirmation');
+    Route::any('/coupons', 'coupons');
     Route::any('/agreement', 'agreement');
     Route::any('/terms-and-condition', 'termsAndCondition');
 

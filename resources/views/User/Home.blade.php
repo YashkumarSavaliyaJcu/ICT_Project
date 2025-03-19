@@ -78,29 +78,36 @@
     </section>
     @endif
 
-    <!-- Blog Section -->
+    <!-- Blogs Section -->
     @if(isset($blogs) && count($blogs) > 0)
-    <section id="blogs" class="blog-section py-5">
-      <div class="container">
-          <div class="service-heading">
-            <h2 class="mb-4 color-green fw-bold text-center heading">Our Blogs</h2>
-            <a href="{{url('/blogs')}}"><button type="button" class="btn-green text-uppercase">View All<i class="fa-solid fa-chevron-right ml-10"></i></button></a>
-          </div>
-          <div class="row">
-            @foreach($blogs as $blog)
+    <section class="blogs py-5 bg-light pt-100">
+        <div class="container">
+            <div class="service-heading">
+                <h2 class="mb-4 color-green fw-bold text-center heading">Our Blogs</h2>
+                <a href="{{url('/blogs')}}"><button type="button" class="btn-green text-uppercase">View All<i class="fa-solid fa-chevron-right ml-10"></i></button></a>
+            </div>
+            <div class="row">
+                @foreach($blogs as $blog)
                 <div class="col-md-4" key="{{$blog->b_id}}">
-                    <div class="blog-card">
-                        <img src="{{ asset('public/Assets') }}/images/blogs/{{$blog->b_image}}" alt="{{$blog->b_title}}">
-                        <div class="blog-content">
-                            <span class="blog-date">{{date('M d',strtotime($blog->b_date))}}</span>
-                            <h3>{{$blog->b_title}}</h3>
-                            <a href="{{$blog->b_url}}" target="_blank" class="read-more">READ MORE <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class=" blog-box">
+                        <img src="{{ asset('public/Assets') }}/images/blogs/{{$blog->b_image}}" class="blog-image" alt="{{$blog->b_title}}">
+                        <div class="card-body blog-box">
+                            <a href="{{$blog->b_url}}" target="_blank">
+                                <p class="card-text">{{$blog->b_title}}</p>
+                            </a>
+                            <hr></hr>
+                            <div class="date-box text-center">
+                                <span class="text-uppercase">{{date('M',strtotime($blog->b_date))}}<br/> {{date('d',strtotime($blog->b_date))}}</span>
+                            </div>
+                            <div class="Link-box text-center">
+                                <a href="{{$blog->b_url}}" target="_blank" class="read-more">Read More<i class="fa-solid fa-arrow-right ml-10"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-      </div>
     </section>
     @endif
 

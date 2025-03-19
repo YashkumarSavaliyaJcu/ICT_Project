@@ -1,12 +1,20 @@
 @extends('User.Master')
 
 @section('body')
+<section class="breadcrumb-section">
+    <h1>My Profile</h1>
+    <nav class="breadcrumbs">
+    <a href="{{url('/')}}">HOME</a>
+    <span>/</span>
+    <a>MY PROFILE</a>
+    </nav>
+</section>
 
-<section id="contact" class="py-5">
+<section class="py-5">
       <div class="container">
           <h2 class="mb-4 color-green fw-bold text-center heading">My Profile</h2>
-          <div class="row">
-              <div class="col-md-12">
+          <div class="row d-flex justify-content-center">
+              <div class="col-md-6">
                   <div class="left-contact">
                   <form action="{{url('updateprofile')}}" method="post">
                   @csrf
@@ -18,8 +26,8 @@
                               <label for="email" class="form-label poppins-medium color-green">Email</label>
                               <input type="email" name="email" value="{{$profile->email}}" class="form-control custom-textbox" id="email" placeholder="Your Email" required disabled>
                           </div>
-                          <div class="btn-box">
-                              <button type="submit" class="btn-green text-uppercase">Save Changes<i class="fa-solid fa-chevron-right ml-10"></i></button>
+                          <div class="btn-box text-center">
+                              <button type="submit" class="btn-green text-uppercase">Save Changes</button>
                           </div>
                       </form>
                   </div>
