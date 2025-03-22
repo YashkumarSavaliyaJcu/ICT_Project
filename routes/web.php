@@ -13,6 +13,8 @@ Route::controller(AdminController::class)->group(function () {
     Route::any('/Admin/users', 'users');
     Route::any('/Admin/blogs/{id?}', 'blogs');
     Route::any('/Admin/coupons/{id?}', 'coupons');
+    Route::any('/Admin/teams/{id?}', 'teams');
+    Route::any('/Admin/testimonial/{id?}', 'testimonial');
 });
 
 Route::controller(UserController::class)->group(function () {

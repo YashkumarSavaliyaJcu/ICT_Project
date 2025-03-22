@@ -92,29 +92,6 @@
   });
 </script>
 <script>
-  $('body').on('click','.readnoti',function(){
-    var id=$(this).attr('data');
-    $.ajax({
-      url: "{{ url('Admin/readnoti') }}/"+id,
-      method: "GET",
-      success: function(result) {
-        if(result!=0 && id!=0)
-        {
-            $('#noti_'+id).remove();
-            $('#emptynoti').hide();
-        }
-        else{
-          $('#noti_0').empty();
-          $('#emptynoti').show();
-          $('.readall').hide();
-          $('.notistatus').hide();
-        }
-        $('#countnoti').html(result);
-      }
-    })
-  });
-</script>
-<script>
     $('.updatestatus').on('click',function(){
         var oid=$(this).attr('data');
         var status=$(this).attr('status');
@@ -142,22 +119,6 @@
                     });
                 }
             })
-    });
-    $('body').on('click','.setshipoid',function(){
-      $('#shipoid').val($(this).attr('data'));
-    });
-
-    $('body').on('click',".shipdata",function(){
-      var val=$(this).val();
-      if(val==1)
-      {
-        $('.shipdetail').show();
-        $('.shipmanual').hide();
-      }
-      else if(val==2 || val==3){
-        $('.shipdetail').hide();
-        $('.shipmanual').show();
-      }
     });
 </script>
 <script src="{{ asset('public/Assets/Admin') }}/js/apps.js"></script>
