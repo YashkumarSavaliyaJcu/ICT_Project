@@ -9,6 +9,8 @@ use App\Models\users;
 use App\Models\services;
 use App\Models\blogs;
 use App\Models\coupons;
+use App\Models\teams;
+use App\Models\testimonial;
 use Session;
 use Config;
 use DB;
@@ -380,7 +382,133 @@ class AdminController extends Controller
         }
     }
 
-     public function users(Request $request){
+    public function teams(Request $request,$id=0)
+    {
+        if(session()->has('adminlogin'))
+        {
+            $data=$request->input();
+            if (count($data) > 0 && $id == 0) 
+            {
+                $insert = array(
+                    'name' => $data['name'],
+                    'position' => $data['position'],
+                    'twitter' => $data['twitter'],
+                    'instagram' => $data['instagram'],
+                    'youtube'=>$data['youtube'],
+                    'facebook'=>$data['facebook']
+                );
+                $name = $this->images($request, 't_image', 'images/teams/');
+                if ($name != 0)
+                {
+                    foreach ($name as $value) {
+                        $insert['t_image'] = $value;
+                    }
+                }
+                else
+                {
+                    $insert['t_image'] = '';
+                }
+                teams::create($insert);
+                $this->flashmessage('Teams Inserted Successfully');
+                return redirect('/Admin/teams');
+            }  
+            elseif (count($data) > 0 && $id != 0) 
+            {
+                $update = array(
+                     'name' => $data['name'],
+                    'position' => $data['position'],
+                    'twitter' => $data['twitter'],
+                    'instagram' => $data['instagram'],
+                    'youtube'=>$data['youtube'],
+                    'facebook'=>$data['facebook']
+                );
+                $name = $this->images($request, 't_image', 'images/teams/');
+                
+                if ($name != 0) 
+                {
+                    foreach ($name as $value) 
+                    {
+                        $update['t_image'] = $value;
+                    }
+                }
+                teams::where('t_id', $id)->update($update);
+                $this->flashmessage('Team Updated Succesfully');
+                return redirect('/Admin/teams');
+            }                 
+            elseif ($id != 0) 
+            {
+                $data['fetchTeam'] = teams::where('t_id', $id)->first();
+            }
+            $data['teams'] = teams::orderBy('t_id','desc')->get();
+            return view('Admin.AdminTeams',$data);
+        }
+        else
+        {
+            return redirect('/Admin');
+        }
+    }
+
+    public function testimonial(Request $request,$id=0)
+    {
+        if(session()->has('adminlogin'))
+        {
+            $data=$request->input();
+            if (count($data) > 0 && $id == 0) 
+            {
+                $insert = array(
+                    'name' => $data['name'],
+                    'company_name' => $data['company_name'],
+                    'message' => $data['message'],
+                );
+                $name = $this->images($request, 'image', 'images/testimonial/');
+                if ($name != 0)
+                {
+                    foreach ($name as $value) {
+                        $insert['image'] = $value;
+                    }
+                }
+                else
+                {
+                    $insert['image'] = '';
+                }
+                testimonial::create($insert);
+                $this->flashmessage('Testimonial Inserted Successfully');
+                return redirect('/Admin/testimonial');
+            }  
+            elseif (count($data) > 0 && $id != 0) 
+            {
+                $update = array(
+                     'name' => $data['name'],
+                     'company_name' => $data['company_name'],
+                    'message' => $data['message'],
+                );
+                $name = $this->images($request, 'image', 'images/testimonial/');
+                
+                if ($name != 0) 
+                {
+                    foreach ($name as $value) 
+                    {
+                        $update['image'] = $value;
+                    }
+                }
+                testimonial::where('t_m_id', $id)->update($update);
+                $this->flashmessage('Testimonial Updated Succesfully');
+                return redirect('/Admin/testimonial');
+            }                 
+            elseif ($id != 0) 
+            {
+                $data['fetchTestimonial'] = testimonial::where('t_m_id', $id)->first();
+            }
+            $data['testimonial'] = testimonial::orderBy('t_m_id','desc')->get();
+            return view('Admin.AdminTestimonial',$data);
+        }
+        else
+        {
+            return redirect('/Admin');
+        }
+    }
+
+    public function users(){
         $data['users'] = users::where('u_type', 0)->orderBy('u_id','DESC')
                 ->get();
         return view('Admin.AdminUser',$data);

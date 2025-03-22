@@ -40,6 +40,18 @@
                 <span class="ml-3 item-text">Coupons</span>
               </a>
             </li>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{{url('/Admin/teams')}}">
+                <i class="fe fe-users fe-16"></i>
+                <span class="ml-3 item-text">Teams</span>
+              </a>
+            </li>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{{url('/Admin/testimonial')}}">
+                <i class="fe fe-edit-3 fe-16"></i>
+                <span class="ml-3 item-text">Testimonial</span>
+              </a>
+            </li>
           </ul>
         </nav>
       </aside>
