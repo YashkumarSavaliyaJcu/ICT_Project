@@ -10,6 +10,8 @@ use App\Models\blogs;
 use App\Models\inquiry;
 use App\Models\coupons;
 use App\Models\serviceorder;
+use App\Models\teams;
+use App\Models\testimonial;
 use DB;
 
 class UserController extends Controller
@@ -90,7 +92,9 @@ class UserController extends Controller
     }
     public function aboutus()
     {
-        return view('User.AboutUs');
+        $data['teams']=teams::orderBy('t_id','DESC')->limit(6)->get();
+        $data['testimonial']=testimonial::orderBy('t_m_id','DESC')->limit(6)->get();
+        return view('User.AboutUs',$data);
     }
     public function services()
     {
@@ -99,6 +103,7 @@ class UserController extends Controller
     }
     public function blogs()
     {
+        $data['teams']=teams::orderBy('t_id','DESC')->get();
         $data['blogs']=blogs::orderBy('b_id','DESC')->get();
         return view('User.Blogs',$data);
     }

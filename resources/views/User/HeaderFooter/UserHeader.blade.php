@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ asset('public/Assets') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('public/Assets') }}/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="{{asset('public/Assets')}}/css/sweetalert2.min.css" type="text/css">
+    <link rel="stylesheet" href="{{ asset('public/Assets') }}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{ asset('public/Assets') }}/css/owl.theme.default.min.css">
 </head>
 <body>
     <!-- Navbar -->

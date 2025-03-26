@@ -32,6 +32,7 @@
     <script src="{{ asset('public/Assets') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('public/Assets') }}/js/jquery-3.3.1.min.js"></script>
     <script src="{{ asset('public/Assets') }}/js/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('public/Assets') }}/js/owl.carousel.min.js"></script>
     <script>
         const Toast = Swal.mixin({
             toast: true,
@@ -154,6 +155,46 @@
                 }
             });
         }
+    </script>
+    <script>
+        $(document).ready(function(){
+            var teamowl = $(".team-carousel").owlCarousel({
+                loop: true,
+                margin: 20,
+                nav: true,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                responsive:{
+                    0:{ items: 1 },
+                    600:{ items: 2 },
+                    1000:{ items: 3 }
+                }
+            });
+
+            // Custom Navigation
+            $(".team-prev-btn").click(function() { teamowl.trigger('prev.owl.carousel'); });
+            $(".team-next-btn").click(function() { teamowl.trigger('next.owl.carousel'); });
+        });
+        $(document).ready(function(){
+            var owl = $(".testimonial-carousel").owlCarousel({
+                loop: true,
+                margin: 20,
+                nav: false,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                smartSpeed: 800,
+                responsive:{
+                    0:{ items: 1 },
+                    600:{ items: 2 },
+                    1000:{ items: 2 }
+                }
+            });
+            // Custom Navigation
+            $(".prev-btn").click(function() { owl.trigger('prev.owl.carousel'); });
+            $(".next-btn").click(function() { owl.trigger('next.owl.carousel'); });
+        });
     </script>
 </body>
 </html>
