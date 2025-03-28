@@ -41,6 +41,7 @@ Route::controller(UserController::class)->group(function () {
     Route::any('/removecoupon', 'removecoupon');
     Route::any('/confirmation/{id}', 'confirmation');
     Route::any('/coupons', 'coupons');
+    Route::any('/booking', 'booking');
     Route::any('/agreement', 'agreement');
     Route::any('/terms-and-condition', 'termsAndCondition');
 

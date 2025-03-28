@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ asset('public/Assets') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('public/Assets') }}/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="{{asset('public/Assets')}}/css/sweetalert2.min.css" type="text/css">
+    <link rel="stylesheet" href="{{ asset('public/Assets') }}/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('public/Assets') }}/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="{{ asset('public/Assets') }}/css/owl.carousel.min.css">
     <link rel="stylesheet" href="{{ asset('public/Assets') }}/css/owl.theme.default.min.css">
 </head>
@@ -66,6 +68,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{ url('/profile') }}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/booking') }}">My Booking</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <a class="dropdown-item" href="{{ url('/logout') }}"
