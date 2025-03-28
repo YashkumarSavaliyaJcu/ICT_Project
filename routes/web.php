@@ -12,6 +12,7 @@ Route::controller(AdminController::class)->group(function () {
     Route::any('/Admin/delete', 'delete');
     Route::any('/Admin/services/{id?}', 'service');
     Route::any('/Admin/users', 'users');
+    Route::any('/Admin/booking', 'booking');
     Route::any('/Admin/blogs/{id?}', 'blogs');
     Route::any('/Admin/coupons/{id?}', 'coupons');
     Route::any('/Admin/teams/{id?}', 'teams');
