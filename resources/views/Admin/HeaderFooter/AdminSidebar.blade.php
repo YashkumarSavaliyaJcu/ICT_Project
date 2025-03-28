@@ -35,6 +35,12 @@
               </a>
             </li>
             <li class="nav-item w-100">
+              <a class="nav-link" href="{{url('/Admin/booking')}}">
+                <i class="fe fe-shopping-bag fe-16"></i>
+                <span class="ml-3 item-text">Booking Orders</span>
+              </a>
+            </li>
+            <li class="nav-item w-100">
               <a class="nav-link" href="{{url('/Admin/coupons')}}">
                 <i class="fe fe-percent fe-16"></i>
                 <span class="ml-3 item-text">Coupons</span>

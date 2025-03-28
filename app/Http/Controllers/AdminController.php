@@ -11,6 +11,7 @@ use App\Models\blogs;
 use App\Models\coupons;
 use App\Models\teams;
 use App\Models\testimonial;
+use App\Models\serviceorder;
 use Session;
 use Config;
 use DB;
@@ -62,10 +63,14 @@ class AdminController extends Controller
     {
         if(session()->has('adminlogin'))
         {
+            $data['totalorders']=serviceorder::all();
+            $data['totalteams']=teams::all();
+            $data['totaltestimonials']=testimonial::all();
             $data['totalservices']=services::all();
             $data['totalusers']=users::where('u_type',0)->get();
             $data['totalblogs']=blogs::all();
             $data['totalcoupons']=coupons::all();
+            $data['orders'] = serviceorder::orderBy('s_o_id','DESC')->get();
             return view('Admin.AdminDashboard',$data);
         }
         else{
@@ -512,5 +517,10 @@ class AdminController extends Controller
         $data['users'] = users::where('u_type', 0)->orderBy('u_id','DESC')
                 ->get();
         return view('Admin.AdminUser',$data);
+    }
+
+    public function booking(){
+        $data['orders'] = serviceorder::orderBy('s_o_id','DESC')->get();
+        return view('Admin.AdminBooking',$data);
     }
 }
