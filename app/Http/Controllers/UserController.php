@@ -410,8 +410,32 @@ class UserController extends Controller
             return redirect('/');
         }
     }
-    public function confirmation()
+
+    public function getorderdetail($oid)
     {
-        return view('User.Confirmation');
+        $uid=session()->get('userlogin.u_id');
+        $odetail = \DB::table('service_order')
+                    ->join('service_order_details', 'service_order_details.s_o_id', 'service_order.s_o_id')
+                    ->leftjoin('services', 'service_order_details.s_id', 'services.s_id')
+                    ->select('service_order.*','services.*', 'service_order_details.*')
+                    ->where([['service_order.s_o_id', $oid],['service_order.u_id',$uid]])->get();
+        return $odetail;
+    }
+
+    public function confirmation(Request $request,$id=0)
+    {
+        if (session()->has('userlogin')) 
+        {
+            $data['orderdetails']=$this->getorderdetail($id);
+            if(count($data['orderdetails']) > 0){
+                return view('User.Confirmation',$data);
+            }
+            else {
+                return redirect('/booking')->with('errormessage','Something Wrong Please Try Again!...');
+            }
+        }
+        else {
+            return redirect('/')->with('errormessage','Please Sign In first');
+        }
     }
 }

@@ -14,35 +14,57 @@
             <a class="text-white">CHECKOUT</a>
         </nav>
     </section>
-
+    <?php
+        $cartTotal=0;
+        $discount=0;
+        $code='';
+    ?>
+    @foreach ($cart as $c)
+        <?php
+            $cartTotal += $c->s_price;
+        ?>
+    @endforeach
+    @if (session()->has('couponcode'))
+        @php
+            $discount = session()->get('couponcode.dis');
+            $code = session()->get('couponcode.code');
+        @endphp
+    @endif
     <!-- Checkout Section -->
     <section class="spad pt-5">
         <div class="container">
             <div class="row">
                 <!-- Customer Details Form -->
                 <div class="col-lg-7">
-                    <form action="#" method="POST">
+                    <form id="checkoutForm">
                         @csrf
+                        <input type="hidden" id="amount" name="amount" value="{{$cartTotal-$discount}}" />
+                        <input type="hidden" id="discount" name="discount" value="{{$discount}}" />
                         <div class="row">
                             <div class="col-md-6 mb-2">
-                                <label for="name" class="form-label">Full Name</label>
+                                <label for="name" class="form-label">Full Name<span class="required">*</span></label>
                                 <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+                                @error('name') <span class="text-danger mb-1 small font-weight-normalbold">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6 mb-2">
-                                <label for="email" class="form-label">Email ID</label>
+                                <label for="email" class="form-label">Email ID<span class="required">*</span></label>
                                 <input type="email" name="email" class="form-control" placeholder="Email ID" required>
+                                @error('email') <span class="text-danger mb-1 small font-weight-normalbold">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6 mt-3">
-                                <label for="phone" class="form-label">Phone Number</label>
+                                <label for="phone" class="form-label">Phone Number<span class="required">*</span></label>
                                 <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+                                @error('phone') <span class="text-danger mb-1 small font-weight-normalbold">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6 mt-3">
-                                <label for="date" class="form-label">Select Your Date</label>
-                                <input type="date" name="date" class="form-control">
+                                <label for="date" class="form-label">Select Your Date<span class="required">*</span></label>
+                                <input type="date" name="date" value="{{date('Y-m-d')}}" class="form-control" required>
+                                @error('date') <span class="text-danger mb-1 small font-weight-normalbold">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-12 mt-3">
-                                <label for="address" class="form-label">Address</label>
-                                <textarea name="address" class="form-control" rows="3" placeholder="Address"></textarea>
+                                <label for="address" class="form-label">Address<span class="required">*</span></label>
+                                <textarea name="address" class="form-control" rows="3" placeholder="Address" required></textarea>
+                                @error('address') <span class="text-danger mb-1 small font-weight-normalbold">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-12 mt-3">
                                 <label for="notes" class="form-label">Additional Notes</label>
@@ -51,37 +73,33 @@
                             
                             <div class="col-md-6 mt-3">
                                 <label for="suburb" class="form-label">Suburb</label>
-                                <select name="suburb" class="form-control">
+                                <select id="suburb" name="suburb" class="form-control">
                                     <option value="">Select...</option>
-                                    <option value="suburb1">Suburb 1</option>
-                                    <option value="suburb2">Suburb 2</option>
+                                    <option value="Bulwer">Bulwer</option>
+                                    <option value="Cowan Cowan">Cowan Cowan</option>
+                                    <option value="Green Island">Green Island</option>
                                 </select>
+                                @error('suburb') <span class="text-danger mb-1 small font-weight-normalbold">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6 mt-3">
-                                <label for="postcode" class="form-label">Postcode</label>
-                                <input type="text" name="postcode" class="form-control" placeholder="Postcode">
+                                <label for="postcode" class="form-label">Postcode<span class="required">*</span></label>
+                                <input type="text" name="postcode" class="form-control" placeholder="Postcode" required>
+                                @error('postcode') <span class="text-danger mb-1 small font-weight-normalbold">{{ $message }}</span> @enderror
                             </div>
                         </div>
 
                         <div class="form-check mt-4">
-                            <input class="form-check-input" type="checkbox" value="" id="terms" required>
+                            <input class="form-check-input" type="checkbox" id="terms" name="terms" required>
                             <label class="form-check-label text-success" for="terms">
-                                I agree to the <a href="#" class="text-success">Terms and Conditions</a> and <a href="#" class="text-success">Cancellation Policy</a>.
+                                I agree to the <a href="{{url('/terms-and-condition')}}" class="text-success">Terms and Conditions</a> and <a href="{{url('/agreement')}}" class="text-success">Cancellation Policy</a>.
                             </label>
+                            @error('terms') <span class="text-danger mb-1 small font-weight-normalbold">{{ $message }}</span> @enderror
                         </div>
+                        <button type="submit" class="btn btn-success btn-block mt-4" id="payNow">PAY NOW →</button>
+                        <div id="paypal-button-container" class="mt-3"></div>
                     </form>
                 </div>
-                <?php
-                    $cartTotal=0;
-                    $discount=0;
-                    $code='';
-                ?>
-                @if (session()->has('couponcode'))
-                    @php
-                        $discount = session()->get('couponcode.dis');
-                        $code = session()->get('couponcode.code');
-                    @endphp
-                @endif
+
                 <!-- Selected Services & Order Summary -->
                 <div class="col-lg-5">
                     <div class="category-title mb-2">
@@ -89,9 +107,6 @@
                         <h3>SELECTED SERVICES</h3>
                     </div>
                     @foreach ($cart as $c)
-                    <?php
-                        $cartTotal += $c->s_price;
-                    ?>
                     <div class="card border-0 shadow-sm mb-3">
                         <div class="card-body">
                             <div class="d-flex align-items-start">
@@ -139,7 +154,7 @@
                                     <strong id="discount">${{number_format($discount,2)}}</strong>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between coupon-container">
-                                    <input type="text" class="form-control custom-textbox w-50 code" placeholder="Promo Code" value="{{$code}}"/>
+                                    <input type="text" class="form-control custom-textbox w-50 code" placeholder="Coupon Code" value="{{$code}}"/>
                                     <div class="d-flex align-items-center gap-1">
                                         <button class="applycoupon coupon-button">Apply</button>
                                         @if(session()->has('couponcode'))
@@ -150,56 +165,11 @@
                                 <li class="list-group-item d-flex justify-content-between font-weight-bold" style="font-size: 18px;">
                                     <span class="color-green fw-bold">Total Amount:</span> 
                                     <strong id="famount">${{number_format($cartTotal-$discount,2)}}</strong>
+                                    
                                 </li>
                             </ul>
                         </div>
                     </div>
-
-                    <!-- Payment Section -->
-                    <div class="card border-0 shadow-sm mt-3">
-                        <div class="card-body">
-                            <h4 class="card-title text-success">Payment Details</h4>
-                            <form action="#" method="POST">
-                                @csrf
-                                <label for="cardNumber" class="form-label">Card Number</label>
-                                <input type="text" name="cardNumber" class="form-control" placeholder="1234 1234 1234 1234" required>
-
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <label for="expiryMonth" class="form-label">Expiry Month</label>
-                                        <select name="expiryMonth" class="form-control">
-                                            <option>Jan</option>
-                                            <option>Feb</option>
-                                            <option>Mar</option>
-                                            <option>Apr</option>
-                                            <option>May</option>
-                                            <option>Jun</option>
-                                            <option>Jul</option>
-                                            <option>Aug</option>
-                                            <option>Sep</option>
-                                            <option>Oct</option>
-                                            <option>Nov</option>
-                                            <option>Dec</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="expiryYear" class="form-label">Expiry Year</label>
-                                        <select name="expiryYear" class="form-control">
-                                            @for ($i = date('Y'); $i <= date('Y') + 10; $i++)
-                                                <option>{{ $i }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <label for="cvv" class="form-label mt-3">CVV</label>
-                                <input type="text" name="cvv" class="form-control" placeholder="000" required>
-
-                                <button type="submit" class="btn btn-success btn-block mt-4">PAY NOW →</button>
-                            </form>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -207,4 +177,121 @@
 
 </main>
 
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function() {
+        $("#checkoutForm").submit(function(e) {
+            e.preventDefault();
+            let formData = {
+                name: $("input[name='name']").val(),
+                email: $("input[name='email']").val(),
+                phone: $("input[name='phone']").val(),
+                date: $("input[name='date']").val(),
+                address: $("textarea[name='address']").val(),
+                notes: $("textarea[name='notes']").val(),
+                suburb: $("#suburb").val(),
+                postcode: $("input[name='postcode']").val(),
+                terms: $("#terms").is(":checked"),
+                amount: $("#amount").val(),
+                discount: $("#discount").val(),
+            };
+
+            if (!validateForm(formData)) {
+                return;
+            }
+
+            window.formData = formData;
+            
+            $("#paypal-button-container").empty();
+            renderPaypalButton();
+            
+        });
+    });
+
+    function renderPaypalButton() {
+        paypal.Buttons({
+            style: { label: "pay" },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: { currency_code: "AUD", value: $("#amount").val() }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    let paymentData = {
+                        payment_id: details.id,
+                        amount: details.purchase_units[0].amount.value,
+                        ...(window.formData),
+                    };
+
+                    fetch('/home-cleaning/paypal-success', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify(paymentData)
+                    }).then(response => response.json()).then(data => {
+                        if (data.status == 'success') {
+                            Toast.fire({
+                                icon: data.status,
+                                title: data.message
+                            });
+                            window.location.href = "/home-cleaning/confirmation/"+data.order_id;
+                        }
+                    });
+                });
+            },
+            onCancel: function(data) {
+                window.location.href = "{{ route('paypal.cancel') }}";
+            }
+        }).render('#paypal-button-container');
+        $("#payNow").hide();
+    }
+
+    function validateForm(formData) {
+        let isValid = true;
+
+        if (formData.name === "") {
+            showToast("The name field is required.");
+            isValid = false;
+        } else if (formData.email === "") {
+            showToast("The email field is required.");
+            isValid = false;
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            showToast("Please enter a valid email address.");
+            isValid = false;
+        } else if (formData.phone === "") {
+            showToast("The phone number field is required.");
+            isValid = false;
+        } else if (formData.date === "") {
+            showToast("The date field is required.");
+            isValid = false;
+        } else if (formData.address === "") {
+            showToast("The address field is required.");
+            isValid = false;
+        } else if (formData.suburb === "") {
+            showToast("The suburb field is required.");
+            isValid = false;
+        } else if (formData.postcode === "") {
+            showToast("The postcode field is required.");
+            isValid = false;
+        } else if (!formData.terms) {
+            showToast("You must agree to the terms and conditions to proceed.");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function showToast(message) {
+        Toast.fire({ icon: "error", title: message });
+    }
+
+    
+</script>
 @endsection
