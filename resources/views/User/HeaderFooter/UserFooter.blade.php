@@ -32,9 +32,21 @@
     <script src="{{ asset('public/Assets') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('public/Assets') }}/js/jquery-3.3.1.min.js"></script>
     <script src="{{ asset('public/Assets') }}/js/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('public/Assets') }}/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('public/Assets') }}/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('public/Assets') }}/js/owl.carousel.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id={{ env('PAYPAL_CLIENT_ID') }}&currency=AUD&disable-funding=card"></script>
     <script>
+
+        $('#dataTable-1').DataTable({
+            autoWidth: true,
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            "order": [[0, "desc"]]
+        });
+
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',

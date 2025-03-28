@@ -438,4 +438,17 @@ class UserController extends Controller
             return redirect('/')->with('errormessage','Please Sign In first');
         }
     }
+
+    public function booking()
+    {
+        if (session()->has('userlogin')) 
+        {
+            $uid=session()->get('userlogin.u_id');
+            $data['orders']=serviceorder::where('u_id',$uid)->orderBy('s_o_id', 'DESC')->get();
+            return view('User.Booking',$data);
+        }
+        else {
+            return redirect('/')->with('errormessage','Please Sign In first');
+        }
+    }
 }
