@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PayPalController;
 
 Route::controller(AdminController::class)->group(function () {
     Route::any('/Admin', 'login');
@@ -16,6 +17,10 @@ Route::controller(AdminController::class)->group(function () {
     Route::any('/Admin/teams/{id?}', 'teams');
     Route::any('/Admin/testimonial/{id?}', 'testimonial');
 });
+
+
+Route::post('/paypal-success', [PayPalController::class, 'success'])->name('paypal.success');
+Route::get('/paypal-cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
 
 Route::controller(UserController::class)->group(function () {
     Route::any('/', 'home');
@@ -34,7 +39,7 @@ Route::controller(UserController::class)->group(function () {
     Route::any('/checkout', 'checkout');
     Route::any('/applycoupon', 'applycoupon');
     Route::any('/removecoupon', 'removecoupon');
-    Route::any('/confirmation', 'confirmation');
+    Route::any('/confirmation/{id}', 'confirmation');
     Route::any('/coupons', 'coupons');
     Route::any('/agreement', 'agreement');
     Route::any('/terms-and-condition', 'termsAndCondition');
