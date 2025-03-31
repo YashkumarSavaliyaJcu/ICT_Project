@@ -523,4 +523,65 @@ class AdminController extends Controller
         $data['orders'] = serviceorder::orderBy('s_o_id','DESC')->get();
         return view('Admin.AdminBooking',$data);
     }
+
+    public function updateorderstatus($oid,$status)
+    {
+        if($status!=3)
+        {
+            $res=serviceorder::where('s_o_id',$oid)->update(array('order_status'=>$status));
+            if($res)
+            {
+                echo json_encode(array(
+                    'message' => 'Order Status Updated',
+                    'status' => 'success',
+                    'response' => 1,
+                ));
+            }
+            else{
+                echo json_encode(array(
+                    'message' => 'Something Wrong Please try again..',
+                    'status' => 'error',
+                    'response' => 0,
+                ));
+            }
+        }
+        else{
+            echo json_encode(array(
+                'message' => 'Something Wrong Please try again..',
+                'status' => 'error',
+                'response' => 0,
+            ));
+        }
+    }
+
+    public function getorderdetail($oid)
+    {
+        $odetail = \DB::table('service_order')
+                    ->join('service_order_details', 'service_order_details.s_o_id', 'service_order.s_o_id')
+                    ->leftjoin('services', 'service_order_details.s_id', 'services.s_id')
+                    ->select('service_order.*','services.*', 'service_order_details.*')
+                    ->where([['service_order.s_o_id', $oid]])->get();
+        return $odetail;
+    }
+
+    public function bookingdetails($id=0)
+    {
+        if(session()->has('adminlogin'))
+        {
+            $orders=serviceorder::where([['s_o_id',$id]])->first();
+            if(isset($orders))
+            {
+                $data['booking_detail']=$this->getorderdetail($id);
+                return view('Admin.AdminBookingOrderDetails',$data);
+            }
+            else{
+                $this->flashmessage("Something Wrong Please try again..",1);
+                return redirect()->back();
+            }
+        }
+        else
+        {
+            return redirect('/Admin');
+        }
+    }
 }
