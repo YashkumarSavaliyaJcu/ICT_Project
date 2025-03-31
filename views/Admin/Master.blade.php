@@ -1,0 +1,6 @@
+@include('Admin.HeaderFooter.AdminHeader')
+@include('Admin.HeaderFooter.AdminSidebar')
+@yield('body')
+@include('Admin.AdminModal')
+@include('Admin.HeaderFooter.AdminFooter')
+@yield('script')
