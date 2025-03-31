@@ -13,10 +13,12 @@ Route::controller(AdminController::class)->group(function () {
     Route::any('/Admin/services/{id?}', 'service');
     Route::any('/Admin/users', 'users');
     Route::any('/Admin/booking', 'booking');
+    Route::any('/Admin/bookingdetails/{id?}', 'bookingdetails');
     Route::any('/Admin/blogs/{id?}', 'blogs');
     Route::any('/Admin/coupons/{id?}', 'coupons');
     Route::any('/Admin/teams/{id?}', 'teams');
     Route::any('/Admin/testimonial/{id?}', 'testimonial');
+    Route::any('/Admin/updateorderstatus/{id?}/{status?}', 'updateorderstatus');
 });
 
 

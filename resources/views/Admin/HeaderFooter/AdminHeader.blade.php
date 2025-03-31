@@ -46,7 +46,6 @@
               </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="{{url('Admin/profile')}}"><i class="fe fe-user"></i> Profile</a>
               <a class="dropdown-item" href="{{url('Admin/logout')}}"><i class="fe fe-log-out"></i> Logout</a>
             </div>
           </li>
