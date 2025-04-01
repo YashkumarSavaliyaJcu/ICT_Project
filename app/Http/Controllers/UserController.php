@@ -55,7 +55,6 @@ class UserController extends Controller
                 'email.required' => 'Please enter your email address',
                 'password.required' => 'Please enter password',
                 'password.min' => 'Please enter 8 character in password',
-                'password.alpha_num' => 'password should be a combination of number and alphanumeric',
                 'c_password.required' => 'Please enter confirm password',
                 'c_password.same' => 'Confirm password not match to password',
             ]);
@@ -63,7 +62,8 @@ class UserController extends Controller
                 'name'=>$data['name'],
                 'email'=>$data['email'],
                 'password'=>md5($data['password']),
-                'u_type'=>0
+                'u_type'=>0,
+                'created_at'=>date('d-m-Y h:i:sa')
             );
             $user = users::create($userData);
             if (!is_null($user)) {
