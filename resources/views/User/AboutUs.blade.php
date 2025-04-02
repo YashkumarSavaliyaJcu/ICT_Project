@@ -29,41 +29,41 @@
     </section>
 
     <!-- Our Team Section -->
+    @if(isset($teams) && count($teams) > 0)
     <section class="spad pt-4 pb-5">
         <div class="container">
-            @if(isset($teams) && count($teams) > 0)
-                <div class="service-heading">
-                <h2 class="mb-4 color-green fw-bold text-center heading">OUR TEAM</h2>
-                    <div class="text-center">
-                        <button class="btn btn-outline-success team-prev-btn"><i class="fas fa-chevron-left"></i></button>
-                        <button class="btn btn-outline-success team-next-btn"><i class="fas fa-chevron-right"></i></button>
-                    </div>
+            <div class="service-heading">
+            <h2 class="mb-4 color-green fw-bold text-center heading">OUR TEAM</h2>
+                <div class="text-center">
+                    <button class="btn btn-outline-success team-prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn btn-outline-success team-next-btn"><i class="fas fa-chevron-right"></i></button>
                 </div>
-                <div class="owl-carousel team-carousel">
-                    @foreach($teams as $t)
-                        <div class="team-card text-center">
-                            <img src="{{ asset('public/Assets/images/teams/'.$t->t_image) }}" class="team-img img-fluid" alt="Team Member">
-                            <div class="team-overlay">
-                                <h5 class="fw-bold text-white">{{ $t->name }}</h5>
-                                <p class="small text-white">{{ $t->position }}</p>
-                                <div>
-                                    <a href="{{ $t->facebook ?: '#' }}" class="text-white me-2"><i class="fab fa-facebook"></i></a>
-                                    <a href="{{ $t->twitter ?: '#' }}" class="text-white me-2"><i class="fab fa-twitter"></i></a>
-                                    <a href="{{ $t->youtube ?: '#' }}" class="text-white me-2"><i class="fab fa-youtube"></i></a>
-                                    <a href="{{ $t->instagram ?: '#' }}" class="text-white me-2"><i class="fab fa-instagram"></i></a>
-                                </div>
+            </div>
+            <div class="owl-carousel team-carousel">
+                @foreach($teams as $t)
+                    <div class="team-card text-center">
+                        <img src="{{ asset('public/Assets/images/teams/'.$t->t_image) }}" class="team-img img-fluid" alt="Team Member">
+                        <div class="team-overlay">
+                            <h5 class="fw-bold text-white mb-1">{{ $t->name }}</h5>
+                            <p class="small text-white mb-1">{{ $t->position }}</p>
+                            <div>
+                                <a href="{{ $t->facebook ?: '#' }}" class="text-white me-2"><i class="fab fa-facebook"></i></a>
+                                <a href="{{ $t->twitter ?: '#' }}" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                                <a href="{{ $t->youtube ?: '#' }}" class="text-white me-2"><i class="fab fa-youtube"></i></a>
+                                <a href="{{ $t->instagram ?: '#' }}" class="text-white me-2"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
-                    @endforeach
-                </div>
-            @endif
+                    </div>
+                @endforeach
+            </div>
         </div>
     </section>
+    @endif
 
     <!-- Our Testimonial Section -->
+    @if(isset($testimonial) && count($testimonial) > 0)
     <section class="spad pt-4 pb-5 bg-light">
-    <div class="container">
-        @if(isset($testimonial) && count($testimonial) > 0)
+        <div class="container">
             <div class="service-heading">
                 <h2 class="mb-4 color-green fw-bold text-center heading">OUR TESTIMONIAL</h2>
                 <div class="text-center">
@@ -76,8 +76,8 @@
                 <div class="card px-5 pt-4 pb-2 testimonial-box">
                     <div class="d-flex align-items-center mb-3">
                         <img src="{{ asset('public/Assets/images/testimonial/'.$t->image) }}" 
-                             class="testimonial-img rounded-circle me-4" 
-                             alt="Client">
+                            class="testimonial-img rounded-circle me-4" 
+                            alt="Client">
                         <div class="testimonial text-start">
                             <h6 class="text-success">{{ $t->name }}</h6>
                             <p class="small m-0">At {{ $t->company_name }}</p>
@@ -87,9 +87,9 @@
                 </div>
                 @endforeach
             </div>
-        @endif
-    </div>
-</section>
+        </div>
+    </section>
+    @endif
 
 </main>
 @endsection
