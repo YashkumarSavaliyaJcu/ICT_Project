@@ -13,6 +13,8 @@ use App\Models\serviceorder;
 use App\Models\teams;
 use App\Models\testimonial;
 use DB;
+use Mail;
+use Config;
 
 class UserController extends Controller
 {
@@ -235,43 +237,35 @@ class UserController extends Controller
                     <b>Email</b> : " . $data['email'] . "<br>
                     <b>Message</b> : " . $data['message'];
                     
-            $admin = users::where('u_type', 1)
-            ->first();
-            $send=$this->emailsend([],[],$admin->email, 'Inquiry From Users', $msg);
-            return redirect('/contact-us')->with('successmessage','Inquiry Send Successfully');
+            $admin = users::where('u_type', 1)->first();
+            $send=$this->emailsend([],[],$admin->email, 'Contact us Form Inquiry', $msg);
+            return redirect()->back()->with('successmessage','Inquiry Send Successfully');
         }
         else{
             return redirect('/contact-us')->with('errormessage','Something Wrong Please Try Again!...');
         }
     }
 
-    public function emailsend($view = [], array $data = [], $sendemail = '', $title = '', $msg = '', $attachment = '')
+    public function emailsend($view = [], array $data = [], $sendemail = '', $title = '', $msg = '')
     {
+        $config = array(
+            'driver'     => env('MAIL_MAILER', 'smtp'),
+            'host'       => env('MAIL_HOST', 'smtp.gmail.com'),
+            'port'       => env('MAIL_PORT', 587),
+            'from'       => array('address' => env('MAIL_FROM_ADDRESS'), 'name' => env('APP_NAME', 'Your App')),
+            'encryption' => 'tls',
+            'username'   => env('MAIL_USERNAME'),
+            'password'   => env('MAIL_PASSWORD'),
+            'sendmail'   => '/usr/sbin/sendmail -bs',
+            'pretend'    => false,
+        );
 
-        // $websetting = websetting::first();
-        // $config = array(
-        //     'driver'     => 'smtp',
-        //     'host'       => $websetting->smtp_host,
-        //     'port'       => $websetting->smtp_port,
-        //     'from'       => array('address' => $websetting->e_from, 'name' => '${APP_NAME}'),
-        //     'encryption' => $websetting->smtp_crypto,
-        //     'username'   => $websetting->smtp_user,
-        //     'password'   => $websetting->smtp_password,
-        //     'sendmail'   => '/usr/sbin/sendmail -bs',
-        //     'pretend'    => false,
+        Config::set('mail', $config);
 
-        // );
-        // Config::set('mail', $config);
-        // $msgre = $msg;
-        // Mail::send($view, $data, function ($message) use ($sendemail, $title, $msgre, $attachment, $websetting) {
-        //     $message->from($websetting->e_from);
-        //     $message->to($sendemail)->subject($title)->setBody($msgre, 'text/html');
-        //     if ($attachment != '') {
-        //         foreach ($attachment as $file) {
-        //             $message->attach($file);
-        //         }
-        //     }
-        // });
+        Mail::send($view, $data, function ($message) use ($sendemail, $title, $msg) {
+            $message->from(env('MAIL_FROM_ADDRESS'));
+            $message->to($sendemail)->subject($title)->html($msg);
+        });
     }
 
     public function profile()
@@ -450,5 +444,17 @@ class UserController extends Controller
         else {
             return redirect('/')->with('errormessage','Please Sign In first');
         }
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $services = services::where('s_title', 'LIKE', "%$query%")
+            ->orWhere('s_description', 'LIKE', "%$query%")
+            ->orderBy('s_id','DESC')
+            ->get();
+
+        return response()->json($services);
     }
 }

@@ -48,6 +48,8 @@ Route::controller(UserController::class)->group(function () {
     Route::any('/agreement', 'agreement');
     Route::any('/terms-and-condition', 'termsAndCondition');
 
+    Route::any('/search-services', 'search')->name('services.search');
+
     Route::any('/profile', 'profile');
     Route::any('/updateprofile', 'updateprofile');
 
