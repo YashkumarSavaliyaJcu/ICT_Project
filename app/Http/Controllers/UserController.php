@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\services;
 use App\Models\addtocart;
 use App\Models\users;
@@ -76,9 +77,55 @@ class UserController extends Controller
         }
         return view('User.SignUp');
     }
-    public function forgotpassword()
+    public function forgotpassword(Request $request)
     {
+        $data = $request->input();
+        if (count($data) > 0) {
+            $user = users::where([['email', $data['email']],['u_type', 0]])->first();
+            if (isset($user)) {
+                $token = Str::random(8);
+                users::where('u_id',$user->u_id)->update(['forgot_otp'=>$token]);
+                $resetUrl = url('/set-password/' . $token);
+                $msg = "<h2>Password Reset Request</h2>
+                        <p>Hello,</p>
+                        <p>We received a request to reset your password. Click the button below to reset it:</p>
+                        <a href='".$resetUrl."' class='btn'>Reset Password</a>";
+                $send=$this->emailsend([],[],$data['email'], 'Forgot password reset link', $msg);
+                return redirect('/login')->with('successmessage','A password reset link has been sent to your email.');;
+            } else {
+                return redirect('/forgot-password')->with('errormessage','Invalid Email');
+            }
+        }
         return view('User.ForgotPassword');
+    }
+    public function setpassword()
+    {
+        return view('User.SetPassword');
+    }
+    public function updatenewpassword(Request $request)
+    {
+        $data = $request->input();
+        if (count($data) > 0) {
+            $this->validate($request, [
+                'otp' => 'required',
+                'password' => 'required|min:8',
+                'c_password' => 'required|same:password',
+            ], [
+                'otp.required' => 'OTP is required',
+                'password.required' => 'Please Enter New Password',
+                'password.min' => 'Please Enter 8 character in password',
+                'c_password.required' => 'Please Enter confirm password',
+                'c_password.same' => 'Confirm password not match to password',
+            ]);
+            $user = users::where([['forgot_otp', $data['otp']],['u_type', 0]])->first();
+            if (isset($user)) {
+                users::where('u_id',$user->u_id)->update(['password'=> md5($data['password']),'forgot_otp'=>null]);
+                return redirect('/login')->with('successmessage','Password Reset Successfully');
+            } else {
+                return redirect('/set-password/'.$data['otp'])->with('errormessage','Something Wrong Please Try Again...');
+            }
+        }
+        return view('User.SetPassword');
     }
     public function logout()
     {
