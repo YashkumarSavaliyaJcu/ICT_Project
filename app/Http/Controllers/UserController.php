@@ -284,8 +284,7 @@ class UserController extends Controller
                     <b>Email</b> : " . $data['email'] . "<br>
                     <b>Message</b> : " . $data['message'];
                     
-            $admin = users::where('u_type', 1)->first();
-            $send=$this->emailsend([],[],$admin->email, 'Contact us Form Inquiry', $msg);
+            $send=$this->emailsend([],[],'jjameshomecleaning@gmail.com', 'Contact us Form Inquiry', $msg);
             return redirect()->back()->with('successmessage','Inquiry Send Successfully');
         }
         else{

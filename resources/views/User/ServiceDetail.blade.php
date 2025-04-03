@@ -29,14 +29,14 @@
                     <i class="fa-solid fa-check-circle"></i>
                     <h3>Quality We Ensure</h3>
                 </div>
-                <p>Ahen An Unknown Printer Took A Galley Of Type And Scraed It To Make.</p>
+                <p>We Ensure the Quality of Service that you have choosed.</p>
             </div>
             <div class="feature-box">
                 <div class="feature">
                     <i class="fa-solid fa-check-circle"></i>
                     <h3>Experienced Workers</h3>
                 </div>
-                <p>Ahen An Unknown Printer Took A Galley Of Type And Scraed It To Make.</p>
+                <p>We have Good Staff for our company that provide best services.</p>
             </div>
         </div>
 
