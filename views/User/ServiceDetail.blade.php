@@ -120,38 +120,17 @@
                 <span class="bar"></span>
                 <h3>Contact Us</h3>
             </div>
-            <form>
-                <input type="text" placeholder="Name" class="form-input">
-                <input type="email" placeholder="Email" class="form-input">
-                <input type="tel" placeholder="Phone No" class="form-input">
+            <form action="{{url('contactmessage')}}" method="post">
+                @csrf
+                <input type="text" name="hdata" class="d-none">
+                <input type="text" placeholder="Name" class="form-input" name="name" required>
+                <input type="email" placeholder="Email" class="form-input" name="email" required>
+                <input type="number" placeholder="Phone No" class="form-input" name="phone" required>
                 <textarea placeholder="Message" class="form-input" name="message" rows="4"></textarea>
-                <button type="submit" class="submit-btn">SUBMIT</button>
+                <button type="submit" class="submit-btn text-uppercase">Send Message<i class="fa-solid fa-chevron-right ml-10"></i></button>
             </form>
         </div>
 
-        <div class="position-relative mt-4">
-          <!-- Background Image -->
-          <div
-            class="rounded shadow-sm position-relative"
-            style="background: url('{{ asset('public/Assets') }}/img/about.png') no-repeat center center/cover; height: 500px;"
-          >
-            <!-- Overlay Effect -->
-            <div
-              class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded"
-            ></div>
-
-            <!-- Discount Text & Button -->
-            <div
-              class="position-absolute top-50 start-50 translate-middle text-center text-white"
-            >
-              <h4 class="fw-bold">30% Discount</h4>
-              <p>Promotion Offer 16 Days</p>
-              <a class="btn btn-light text-success fw-bold px-4 py-2"
-                >GET IT</a
-              >
-            </div>
-          </div>
-        </div>
     </aside>
     </div>
 </main>

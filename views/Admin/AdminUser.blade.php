@@ -16,6 +16,7 @@
                                         <th class="all">#</th>
                                         <th class="all">Name</th>
                                         <th class="all">Email</th>
+                                        <th class="all">Created Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -24,6 +25,7 @@
                                             <td>{{$key+1}}</td>
                                             <td>{{$value->name}}</td>
                                             <td>{{$value->email}}</td>
+                                            <td>{{$value->created_at?date('Y-m-d H:i:sa', strtotime($value->created_at)):'-'}}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
