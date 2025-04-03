@@ -228,7 +228,7 @@
                         ...(window.formData),
                     };
 
-                    fetch('/home-cleaning/paypal-success', {
+                    fetch('/ICT_Project/paypal-success', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -241,7 +241,7 @@
                                 icon: data.status,
                                 title: data.message
                             });
-                            window.location.href = "/home-cleaning/confirmation/"+data.order_id;
+                            window.location.href = "/ICT_Project/confirmation/"+data.order_id;
                         }
                     });
                 });

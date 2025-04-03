@@ -22,8 +22,8 @@
                         </div>
                         <div>
                             <h6 class="fw-bold text-success mb-1">Phone</h6>
-                            <p class="mb-0">+61 489263036</p>
-                            <p>+61 489263036</p>
+                            <p class="mb-0">+61 469326306</p>
+                            <p>+61 456678420</p>
                         </div>
                     </div>
                 </div>
@@ -32,12 +32,12 @@
                 <div class="col-md-4">
                     <div class="border rounded p-4 shadow-sm d-flex align-items-center bg-white">
                         <div class="icon-box bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
-                            <i class="fas fa-envelope fs-5"></i>
+                        <i class="fas fa-phone fs-5"></i>
                         </div>
                         <div>
                             <h6 class="fw-bold text-success mb-1">Email</h6>
-                            <p class="mb-0">ebct123@gmail.com</p>
-                            <p>ebct1@gmail.com</p>
+                            <p class="mb-0">jameshomecleaning@gmail.com</p>
+                            <p>jameshome@gmail.com</p>
                         </div>
                     </div>
                 </div>

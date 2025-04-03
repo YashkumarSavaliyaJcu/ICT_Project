@@ -2,7 +2,7 @@
         <div class="footer-content">
             <div class="footer-info">
                 <img src="{{ asset('public/Assets') }}/img/logo.png" alt="logo" class="footer-logo">
-                <p>Lorem ipsum is Simply Dummy Text Of The Printing And Typesetting Industry.</p>
+                <p>James Home Cleaning is committed to providing top-notch cleaning services to meet your unique needs.</p>
                 <div class="social-icons">
                     <!-- Add social media icons here -->
                 </div>

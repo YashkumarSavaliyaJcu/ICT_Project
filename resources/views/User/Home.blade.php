@@ -30,8 +30,8 @@
           </div>
           <div class="col-xl-6">
               <h2 class="mb-4 color-green fw-bold heading">About Us</h2>
-              <p>James Home Cleaning is committed to providing top-notch cleaning services to meet your unique needs. Our team of experienced professionals ensures quality and satisfaction with every job.</p>
-              <p>James Home Cleaning is committed to providing top-notch cleaning services to meet your unique needs. Our team of experienced professionals ensures quality and satisfaction with every job.</p>
+              <p>At James Cleaning service we take pride in delivering top-notch home cleaning services tailored to your needs. Our experienced and professional team ensures your home is spotless, fresh, and welcoming. Whether it’s a one-time deep clean or regular maintenance, we provide efficient and eco-friendly solutions to keep your space shining</p>
+              <p>With a commitment to quality and customer satisfaction, we use high-standard cleaning products and techniques to guarantee the best results. Trust us to handle the mess while you enjoy a cleaner, healthier home!</p>
 
               <div class="btn-box">
                   <a href="{{url('/about-us')}}"><button type="button" class="btn-green text-uppercase">About us</button></a>
