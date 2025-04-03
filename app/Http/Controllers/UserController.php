@@ -297,6 +297,38 @@ class UserController extends Controller
         return redirect('profile')->with('successmessage','Profile Updated Successfully');
     }
 
+    public function changepassword(Request $request)
+    {
+        if (session()->has('userlogin')) {
+            $uid=session()->get('userlogin.u_id');
+            $data = $request->input();
+            if (count($data) > 0) {
+                $this->validate($request, [
+                    'oldpassword' => 'required',
+                    'new_password' => 'required|min:8',
+                    'c_password' => 'required|same:new_password',
+                ], [
+                    'oldpassword.required' => 'Old password is required',
+                    'new_password.required' => 'Please Enter New Password',
+                    'new_password.min' => 'Please Enter 8 character in password',
+                    'c_password.required' => 'Please Enter confirm password',
+                    'c_password.same' => 'Confirm password not match to password',
+                ]);
+                $user = users::where([['password',md5($data['oldpassword'])],['u_id', $uid]])->first();
+                if (isset($user)) {
+                    users::where('u_id',$user->u_id)->update(['password'=> md5($data['new_password'])]);
+                    return redirect('/change-password')->with('successmessage','Password Changed Successfully');
+                } else {
+                    return redirect('/change-password')->with('errormessage','Old Password is wrong');
+                }
+            }
+            return view('User.ChangePassword');
+        }
+        else {
+            return redirect('/')->with('errormessage','Please Sign In first');
+        }
+    }
+
     public function cart()
     {
         if (session()->has('userlogin')) {

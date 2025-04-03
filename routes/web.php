@@ -52,6 +52,7 @@ Route::controller(UserController::class)->group(function () {
 
     Route::any('/profile', 'profile');
     Route::any('/updateprofile', 'updateprofile');
+    Route::any('/change-password', 'changepassword');
 
     Route::any('/{url?}','index');
 });
