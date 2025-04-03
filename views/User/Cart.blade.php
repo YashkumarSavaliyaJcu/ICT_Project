@@ -92,12 +92,6 @@
                         </div>
                     </div>
 
-                    <!-- Promo Offer -->
-                    <div class="promo-section mt-4 p-3 bg-light text-center border rounded">
-                        <h5 class="text-success">30% Discount</h5>
-                        <p>Promotion Offer Ends in 16 Days</p>
-                        <button class="btn btn-warning">View More</button>
-                    </div>
                 </div>
 
             </div>

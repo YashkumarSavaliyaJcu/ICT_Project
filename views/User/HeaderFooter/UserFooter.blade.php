@@ -1,10 +1,15 @@
     <footer>
         <div class="footer-content">
             <div class="footer-info">
-                <img src="{{ asset('public/Assets') }}/img/logo.png" alt="logo" class="footer-logo">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="{{ asset('public/Assets') }}/img/logo.png" alt="logo" class="footer-logo">
+                </a>
                 <p>Lorem ipsum is Simply Dummy Text Of The Printing And Typesetting Industry.</p>
                 <div class="social-icons">
-                    <!-- Add social media icons here -->
+                    <a href="#" class="me-2"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="me-2"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             <div class="useful-links">
