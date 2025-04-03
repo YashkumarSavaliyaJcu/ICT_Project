@@ -30,6 +30,8 @@ Route::controller(UserController::class)->group(function () {
     Route::any('/login', 'login');
     Route::any('/sign-up', 'signup');
     Route::any('/forgot-password', 'forgotpassword');
+    Route::any('/set-password/{otp}', 'setpassword');
+    Route::any('/update-new-password', 'updatenewpassword');
     Route::any('/logout', 'logout');
     Route::any('/about-us', 'aboutus');
     Route::any('/services', 'services');
